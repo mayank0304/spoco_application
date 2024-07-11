@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "552723206130",
+    "project_id": "spoco-cc192",
+    "storage_bucket": "spoco-cc192.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:552723206130:android:4380b69c1a9b61e842256b",
+        "android_client_info": {
+          "package_name": "com.example.spoco_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJ7vwT_AJQ8PE3pUhuJyfXIxtzbJXdZm8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
