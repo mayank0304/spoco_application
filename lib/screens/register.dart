@@ -84,6 +84,7 @@ class _RegisterState extends State<Register> {
 
         // 4. Use firebase firestore to create new document in user collection
         db.collection("users").doc(uid).set(userData).then((value) {
+          Util.user = user;
           Navigator.of(context).pushReplacementNamed("/home");
         });
 

@@ -1,7 +1,10 @@
 // ignore_for_file: avoid_print
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:spoco_app/model/user.dart';
+import 'package:spoco_app/utils/util.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -12,7 +15,20 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  TextEditingController passwordController = TextEditingController(); 
+
+   @override
+  void initState() {
+    super.initState();
+  }
+
+  // Kind of Destructor
+  @override
+  void dispose() {
+    super.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+  }
 
   login() async {
     String email = emailController.text.trim();
@@ -24,7 +40,11 @@ class _LoginState extends State<Login> {
             .signInWithEmailAndPassword(email: email, password: password);
         print("Credentials: $credential");
 
-        Navigator.of(context).pushReplacementNamed("/home");
+        FirebaseFirestore.instance.collection("users").doc(credential.user!.uid).get().then((DocumentSnapshot doc) {
+          final data = doc.data() as Map<String, dynamic>;
+          Util.user = AppUser.fromMap(data);
+          Navigator.of(context).pushReplacementNamed("/home");
+        });
       } on FirebaseAuthException catch (e) {
         if (e.code == 'user-not-found') {
           print('No user found for that email.');
