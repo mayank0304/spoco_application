@@ -11,10 +11,13 @@ capacity
 visibility preference
 */
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:spoco_app/utils/util.dart';
 
 class Turf {
   String name;
   String description;
+  String addressLine;
+  String country;
   String city;
   String state;
   GeoPoint location;
@@ -29,6 +32,8 @@ class Turf {
   Turf({
     required this.name,
     required this.description,
+    required this.addressLine,
+    required this.country,
     required this.city,
     required this.state,
     required this.location,
@@ -46,6 +51,8 @@ class Turf {
     return {
       'name': name,
       'description': description,
+      'addressLine': addressLine,
+      'country': country,
       'city': city,
       'state': state,
       'location': location,
@@ -64,6 +71,8 @@ class Turf {
     return Turf(
       name: map['name'],
       description: map['description'],
+      addressLine: map['addressLine'],
+      country: map['country'],
       city: map['city'],
       state: map['state'],
       location: map['location'],
@@ -75,5 +84,23 @@ class Turf {
       uid: map['uid'],
       createdOn: (map['createdOn'] as Timestamp).toDate(),
     );
+  }
+
+  static Turf getEmptyObject() {
+    return Turf(
+        name: "",
+        description: "",
+        addressLine: "",
+        country: "",
+        city: "",
+        state: "",
+        location: Util.geoPoint,
+        photos: [],
+        rent: 0,
+        condition: "Select Condition",
+        capacity: 0,
+        visibility: "Select Visibilty",
+        uid: Util.UID,
+        createdOn: DateTime.now());
   }
 }
