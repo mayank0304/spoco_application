@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:spoco_app/screens/multi_image_upload.dart';
 import 'package:spoco_app/screens/my_turfs_page.dart';
 // import 'package:geolocator/geolocator.dart';
 import 'package:spoco_app/screens/profile_page.dart';
@@ -22,7 +23,7 @@ class _HomePageState extends State<HomePage> {
   List widgets = [
     const Text("Home Page"),
     const MyTurfsPage(),
-    const Text("Sports"),
+    const MultiImageUpload(),
     const ProfilePage()
   ];
 

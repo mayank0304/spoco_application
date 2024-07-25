@@ -18,6 +18,7 @@ class _MyTurfsPageState extends State<MyTurfsPage> {
   addTurfToDB() async{
     formKey.currentState!.save();
     final result = await service.addTurf(turf);
+    print(result);
     if(result.contains["Successfully"]) {
       setState(() {
         ShowProgres = false;
@@ -220,7 +221,7 @@ class _MyTurfsPageState extends State<MyTurfsPage> {
                 const SizedBox(
                   height: 20,
                 ),
-                 DropdownButtonFormField(
+                DropdownButtonFormField(
                     value: turf.condition,
                     items: ["Select Condition", "new", "old"].map((e) {
                       return DropdownMenuItem(value: e, child: Text(e));
