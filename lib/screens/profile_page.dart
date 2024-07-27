@@ -1,11 +1,12 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:spoco_app/model/user.dart';
 import 'package:spoco_app/utils/util.dart';
+import 'package:spoco_app/widgets/text_form_field.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -15,7 +16,6 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  // AppUser user = AppUser.getEmptyUser();
   AppUser user = Util.user!;
   final formKey = GlobalKey<FormState>();
   bool club = false;
@@ -88,387 +88,335 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      // color: Colors.black,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: SingleChildScrollView(
-          child: Form(
-            key: formKey,
-            child: Column(
-              children: [
-                const Center(
-                  child: Text(
-                    "Personal Details",
-                    style: TextStyle(
-                        // backgroundColor: Colors.deepPurple,
-                        // color: Colors.white,
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                GestureDetector(
-                  onTap: pickupProfileImage,
-                  child: CircleAvatar(
-                    radius: 50,
-                    backgroundImage: user.imageUrl.isEmpty ? const NetworkImage(
-                        "https://firebasestorage.googleapis.com/v0/b/spoco-cc192.appspot.com/o/profile-pics%2FWEhJwE1ySoTbnxG8HvlnVQqEAVk2.png?alt=media&token=c16af137-6d7a-4647-ba60-00b0b9f9b5f6") : NetworkImage(user.imageUrl),
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                TextFormField(
-                  decoration: InputDecoration(
-                    prefixIcon: const Icon(Icons.person),
-                      hintText: "name",
-                      labelStyle: const TextStyle(
-                          // color: Colors.grey,
-                          // fontWeight: FontWeight.bold
-                          ),
-                      border: const OutlineInputBorder(
-                          borderSide: BorderSide(width: 2),
-                          borderRadius: BorderRadius.all(Radius.circular(10))),
-                      fillColor: Colors.blue.withOpacity(0.2),
-                      filled: true),
-                  initialValue: user.name.isNotEmpty ? user.name : "",
-                  onSaved: (value) {
-                    user.name = value!;
-                  },
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                TextFormField(
-                  decoration: InputDecoration(
-                    prefixIcon: const Icon(Icons.phone),
-                      hintText: "phone",
-                      labelStyle: const TextStyle(
-                          // color: Colors.grey,
-                          // fontWeight: FontWeight.bold
-                          ),
-                      border: const OutlineInputBorder(
-                          borderSide: BorderSide(width: 2),
-                          borderRadius: BorderRadius.all(Radius.circular(10))),
-                      fillColor: Colors.blue.withOpacity(0.2),
-                      filled: true),
-                  initialValue: user.phone.isNotEmpty ? user.phone : "",
-                  onSaved: (value) {
-                    user.phone = value!;
-                  },
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                TextFormField(
-                  decoration: InputDecoration(
-                    prefixIcon: const Icon(Icons.email),
-                      hintText: "email",
-                      labelStyle: const TextStyle(
-                          // color: Colors.grey,
-                          // fontWeight: FontWeight.bold
-                          ),
-                      border: const OutlineInputBorder(
-                          borderSide: BorderSide(width: 3),
-                          borderRadius: BorderRadius.all(Radius.circular(10))),
-                      fillColor: Colors.blue.withOpacity(0.2),
-                      filled: true),
-                  initialValue: user.email.isNotEmpty ? user.email : "",
-                  onSaved: (value) {
-                    user.email = value!;
-                  },
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
+    return SafeArea(
+      child: Scaffold(
+      backgroundColor: Colors.black,
+        body: Column(
+          children: [
+            VxArc(
+              height: 15,
+              child: Container(
+                height: 300,
+                color: const Color(0xFF1A3636),
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 24.0),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        "Gender",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 20),
+                      const Center(
+                        child: Text(
+                          "Profile",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold),
+                        ),
                       ),
-                      ListTile(
-                        title: const Text("Male"),
-                        leading: Radio(
-                            value: "Male",
-                            groupValue: user.gender,
-                            onChanged: (value) {
-                              setState(() {
-                                user.gender = value!;
-                              });
-                            }),
+                      30.heightBox,
+                      GestureDetector(
+                        onTap: pickupProfileImage,
+                        child: CircleAvatar(
+                          radius: 60,
+                          backgroundImage: user.imageUrl.isEmpty
+                              ? const NetworkImage(
+                                  "https://firebasestorage.googleapis.com/v0/b/spoco-cc192.appspot.com/o/profile-pics%2FWEhJwE1ySoTbnxG8HvlnVQqEAVk2.png?alt=media&token=c16af137-6d7a-4647-ba60-00b0b9f9b5f6")
+                              : NetworkImage(user.imageUrl),
+                        ),
                       ),
-                      ListTile(
-                        title: const Text("Female"),
-                        leading: Radio(
-                            value: "Female",
-                            groupValue: user.gender,
-                            onChanged: (value) {
-                              setState(() {
-                                user.gender = value!;
-                              });
-                            }),
-                      ),
+                      15.heightBox,
+                      user.name.text.white.xl.make(),
+                      user.email.text.white.xl.make(),
                     ],
                   ),
                 ),
-                DropdownButtonFormField(
-                    value: user.sports,
-                    items: ["Select Sports", "cricket", "soccer"].map((e) {
-                      return DropdownMenuItem(value: e, child: Text(e));
-                    }).toList(),
-                    onChanged: (value) {
-                      user.sports = value!;
-                    }),
-                const SizedBox(
-                  height: 20,
-                ),
-                TextFormField(
-                  initialValue:
-                      user.addressLine.isNotEmpty ? user.addressLine : "",
-                  decoration: InputDecoration(
-                    prefixIcon: const Icon(Icons.location_city),
-                      hintText: "address",
-                      labelStyle: const TextStyle(
-                          // color: Colors.grey,
-                          // fontWeight: FontWeight.bold
-                          ),
-                      border: const OutlineInputBorder(
-                          borderSide: BorderSide(width: 2),
-                          borderRadius: BorderRadius.all(Radius.circular(10))),
-                      fillColor: Colors.blue.withOpacity(0.2),
-                      filled: true),
-                  onSaved: (value) {
-                    user.addressLine = value!;
-                  },
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                TextFormField(
-                  initialValue: user.city.isNotEmpty ? user.city : "",
-                  decoration: InputDecoration(
-                    prefixIcon: const Icon(Icons.location_city),
-                      hintText: "city",
-                      labelStyle: const TextStyle(
-                          // color: Colors.grey,
-                          // fontWeight: FontWeight.bold
-                          ),
-                      border: const OutlineInputBorder(
-                          borderSide: BorderSide(width: 2),
-                          borderRadius: BorderRadius.all(Radius.circular(10))),
-                      fillColor: Colors.blue.withOpacity(0.2),
-                      filled: true),
-                  onSaved: (value) {
-                    user.city = value!;
-                  },
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                TextFormField(
-                  initialValue: user.state.isNotEmpty ? user.state : "",
-                  decoration: InputDecoration(
-                    prefixIcon: const Icon(Icons.location_city),
-                      hintText: "state",
-                      labelStyle: const TextStyle(
-                          // color: Colors.grey,
-                          // fontWeight: FontWeight.bold
-                          ),
-                      border: const OutlineInputBorder(
-                          borderSide: BorderSide(width: 2),
-                          borderRadius: BorderRadius.all(Radius.circular(10))),
-                      fillColor: Colors.blue.withOpacity(0.2),
-                      filled: true),
-                  onSaved: (value) {
-                    user.state = value!;
-                  },
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                TextFormField(
-                  initialValue: user.country.isNotEmpty ? user.country : "",
-                  decoration: InputDecoration(
-                    prefixIcon: const Icon(Icons.location_city),
-                      hintText: "country",
-                      labelStyle: const TextStyle(
-                          // color: Colors.grey,
-                          // fontWeight: FontWeight.bold
-                          ),
-                      border: const OutlineInputBorder(
-                          borderSide: BorderSide(width: 2),
-                          borderRadius: BorderRadius.all(Radius.circular(10))),
-                      fillColor: Colors.blue.withOpacity(0.2),
-                      filled: true),
-                  onSaved: (value) {
-                    user.country = value!;
-                  },
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        "Role",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 20),
-                      ),
-                      ListTile(
-                        title: const Text("Player"),
-                        leading: Radio(
-                            value: "Player",
-                            groupValue: user.role,
-                            onChanged: (value) {
-                              setState(() {
-                                user.role = value!;
-                              });
-                            }),
-                      ),
-                      ListTile(
-                        title: const Text("Coach"),
-                        leading: Radio(
-                            value: "Coach",
-                            groupValue: user.role,
-                            onChanged: (value) {
-                              setState(() {
-                                user.role = value!;
-                              });
-                            }),
-                      ),
-                      ListTile(
-                        title: const Text("Ground/Turf owner"),
-                        leading: Radio(
-                            value: "Ground/Turf owner",
-                            groupValue: user.role,
-                            onChanged: (value) {
-                              setState(() {
-                                user.role = value!;
-                              });
-                            }),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                    ],
-                  ),
-                ),
-                SwitchListTile(
-                    title: const Text("Is represented any club? "),
-                    value: user.isRepresentedAnyClub,
-                    onChanged: (value) {
-                      setState(() {
-                        club = value;
-                        user.isRepresentedAnyClub = value;
-                      });
-                    }),
-                const SizedBox(
-                  height: 20,
-                ),
-                DropdownButtonFormField(
-                    value: user.highestLevelPlayed,
-                    items: [
-                      "Highest Level Played",
-                      "zonal",
-                      "district",
-                      "state",
-                      "national",
-                      "international"
-                    ].map((e) {
-                      return DropdownMenuItem(value: e, child: Text(e));
-                    }).toList(),
-                    onChanged: (value) {
-                      user.highestLevelPlayed = value!;
-                    }),
-                const SizedBox(
-                  height: 20,
-                ),
-                ListTile(
-                  title: Text(user.dateOfBirth.toIso8601String()),
-                  trailing: const Icon(Icons.calendar_month),
-                  onTap: pickerDateOfBirth,
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                TextFormField(
-                  initialValue: user.clubName.isNotEmpty ? user.clubName : "",
-                  decoration: InputDecoration(
-                      labelText: "club name",
-                      labelStyle: const TextStyle(
-                          // color: Colors.grey,
-                          // fontWeight: FontWeight.bold
-                          ),
-                      border: const OutlineInputBorder(
-                          borderSide: BorderSide(width: 2),
-                          borderRadius: BorderRadius.all(Radius.circular(10))),
-                      fillColor: Colors.blue.withOpacity(0.2),
-                      filled: true),
-                  onSaved: (value) {
-                    user.clubName = value!;
-                  },
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                TextFormField(
-                  initialValue: user.schoolCollegeOrgName.isNotEmpty
-                      ? user.schoolCollegeOrgName
-                      : "",
-                  decoration: InputDecoration(
-                      labelText: "school/ college/ organisation",
-                      labelStyle: const TextStyle(
-                          // color: Colors.grey,
-                          // fontWeight: FontWeight.bold
-                          ),
-                      border: const OutlineInputBorder(
-                          borderSide: BorderSide(width: 2),
-                          borderRadius: BorderRadius.all(Radius.circular(10))),
-                      fillColor: Colors.blue.withOpacity(0.2),
-                      filled: true),
-                  onSaved: (value) {
-                    user.schoolCollegeOrgName = value!;
-                  },
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                TextFormField(
-                  initialValue: user.username.isNotEmpty ? user.username : "",
-                  decoration: InputDecoration(
-                      labelText: "username",
-                      labelStyle: const TextStyle(
-                          // color: Colors.grey,
-                          // fontWeight: FontWeight.bold
-                          ),
-                      border: const OutlineInputBorder(
-                          borderSide: BorderSide(width: 2),
-                          borderRadius: BorderRadius.all(Radius.circular(10))),
-                      fillColor: Colors.blue.withOpacity(0.2),
-                      filled: true),
-                  onSaved: (value) {
-                    user.username = value!;
-                  },
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                ElevatedButton(
-                  onPressed: saveUserToFirebase,
-                  style: const ButtonStyle(),
-                  child: const Text("Save"),
-                )
-              ],
+              ),
             ),
-          ),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Card(
+                    elevation: 5, // Set the elevation
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Form(
+                        key: formKey,
+                        child: Column(
+                          children: [
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            MyTextFormField(
+                              initVal: user.name.isNotEmpty ? user.name : "",
+                              onSav: (value) {
+                                user.name = value!;
+                              },
+                              hint: "name",
+                              icon: const Icon(Icons.person),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            MyTextFormField(
+                              initVal: user.phone.isNotEmpty ? user.phone : "",
+                              onSav: (value) {
+                                user.phone = value!;
+                              },
+                              hint: "phone",
+                              icon: const Icon(Icons.phone),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            MyTextFormField(
+                                initVal: user.email.isNotEmpty ? user.email : "",
+                                onSav: (value) {
+                                  user.email = value!;
+                                },
+                                hint: "email",
+                                icon: const Icon(Icons.email)),
+                            Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    "Gender",
+                                    style: TextStyle(
+                                      color: Color(0xFF1A3636),
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20),
+                                  ),
+                                  ListTile(
+                                    title: const Text("Male"),
+                                    leading: Radio(
+                                        value: "Male",
+                                        groupValue: user.gender,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            user.gender = value!;
+                                          });
+                                        }),
+                                  ),
+                                  ListTile(
+                                    title: const Text("Female"),
+                                    leading: Radio(
+                                        value: "Female",
+                                        groupValue: user.gender,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            user.gender = value!;
+                                          });
+                                        }),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            DropdownButtonFormField(
+                                value: user.sports.isNotEmpty
+                                    ? user.sports
+                                    : "Select Sports",
+                                items: ["Select Sports", "cricket", "soccer"]
+                                    .map((e) {
+                                  return DropdownMenuItem(
+                                      value: e, child: Text(e));
+                                }).toList(),
+                                onChanged: (value) {
+                                  user.sports = value!;
+                                }),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            MyTextFormField(
+                                initVal: user.addressLine.isNotEmpty
+                                    ? user.addressLine
+                                    : "",
+                                onSav: (value) {
+                                  user.addressLine = value!;
+                                },
+                                hint: "address",
+                                icon: const Icon(Icons.location_city)),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            MyTextFormField(
+                                initVal: user.city.isNotEmpty ? user.city : "",
+                                onSav: (value) {
+                                  user.city = value!;
+                                },
+                                hint: "city",
+                                icon: const Icon(Icons.location_city)),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            MyTextFormField(
+                                initVal: user.state.isNotEmpty ? user.state : "",
+                                onSav: (value) {
+                                  user.state = value!;
+                                },
+                                hint: "state",
+                                icon: const Icon(Icons.location_city)),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            MyTextFormField(
+                                initVal:
+                                    user.country.isNotEmpty ? user.country : "",
+                                onSav: (value) {
+                                  user.country = value!;
+                                },
+                                hint: "country",
+                                icon: const Icon(Icons.location_city)),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    "Role",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20),
+                                  ),
+                                  ListTile(
+                                    title: const Text("Player"),
+                                    leading: Radio(
+                                        value: "Player",
+                                        groupValue: user.role,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            user.role = value!;
+                                          });
+                                        }),
+                                  ),
+                                  ListTile(
+                                    title: const Text("Coach"),
+                                    leading: Radio(
+                                        value: "Coach",
+                                        groupValue: user.role,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            user.role = value!;
+                                          });
+                                        }),
+                                  ),
+                                  ListTile(
+                                    title: const Text("Ground/Turf owner"),
+                                    leading: Radio(
+                                        value: "Ground/Turf owner",
+                                        groupValue: user.role,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            user.role = value!;
+                                          });
+                                        }),
+                                  ),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SwitchListTile(
+                                activeColor: const Color(0xFF1A3636),
+                                title: const Text("Is represented any club? "),
+                                value: user.isRepresentedAnyClub,
+                                onChanged: (value) {
+                                  setState(() {
+                                    club = value;
+                                    user.isRepresentedAnyClub = value;
+                                  });
+                                }),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            DropdownButtonFormField(
+                                value: user.highestLevelPlayed.isNotEmpty
+                                    ? user.highestLevelPlayed
+                                    : "Highest Level Played",
+                                items: [
+                                  "Highest Level Played",
+                                  "zonal",
+                                  "district",
+                                  "state",
+                                  "national",
+                                  "international"
+                                ].map((e) {
+                                  return DropdownMenuItem(
+                                      value: e, child: Text(e));
+                                }).toList(),
+                                onChanged: (value) {
+                                  user.highestLevelPlayed = value!;
+                                }),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            ListTile(
+                              title: Text(user.dateOfBirth.toIso8601String()),
+                              trailing: const Icon(Icons.calendar_month),
+                              onTap: pickerDateOfBirth,
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            MyTextFormField(
+                                initVal:
+                                    user.clubName.isNotEmpty ? user.clubName : "",
+                                onSav: (value) {
+                                  user.clubName = value!;
+                                },
+                                hint: "club name",
+                                icon: const Icon(Icons.group)),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            MyTextFormField(
+                                initVal: user.schoolCollegeOrgName.isNotEmpty
+                                    ? user.schoolCollegeOrgName
+                                    : "",
+                                onSav: (value) {
+                                  user.schoolCollegeOrgName = value!;
+                                },
+                                hint: "school/ college/ organisation",
+                                icon: const Icon(Icons.school)),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            MyTextFormField(
+                                initVal:
+                                    user.username.isNotEmpty ? user.username : "",
+                                onSav: (value) {
+                                  user.username = value!;
+                                },
+                                hint: "username",
+                                icon: const Icon(Icons.person_2_rounded)),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            SizedBox(
+                              width: 200,
+                              child: ElevatedButton(
+                                onPressed: saveUserToFirebase,
+                                style: const ButtonStyle(
+                                    backgroundColor:
+                                        WidgetStatePropertyAll(Color(0xFF1A3636))),
+                                child: "Save".text.white.xl.make(),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

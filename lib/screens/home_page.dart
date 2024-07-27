@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:spoco_app/screens/list_turfs.dart';
 import 'package:spoco_app/screens/multi_image_upload.dart';
 import 'package:spoco_app/screens/my_turfs_page.dart';
 // import 'package:geolocator/geolocator.dart';
@@ -21,10 +22,10 @@ class _HomePageState extends State<HomePage> {
   int selectedIndex = 0;
 
   List widgets = [
-    const Text("Home Page"),
+    const ListTurfs(),
     const MyTurfsPage(),
     const MultiImageUpload(),
-    const ProfilePage()
+    const ProfilePage(),
   ];
 
   onItemTaped(int index) {
@@ -41,26 +42,16 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          title: const Text(
-            "Home",
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-          actions: [
-            IconButton(
-              onPressed: signout,
-              icon: const Icon(Icons.logout_rounded),
-            ),
-          ]),
+      
       body: Center(
         child: widgets[selectedIndex],
       ),
       bottomNavigationBar: BottomNavigationBar(
-        // backgroundColor: Colors.black,
-        selectedItemColor: Colors.blue.shade700,
-        unselectedItemColor: Colors.blue.shade300,
+        type: BottomNavigationBarType.fixed,
+        backgroundColor:const  Color(0xFF1A3636),
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.white,
         // elevation: 0,
-        // fixedColor: Colors.blue,
         items: const [
           BottomNavigationBarItem(
               icon: Icon(
@@ -86,7 +77,7 @@ class _HomePageState extends State<HomePage> {
                 Icons.person,
                 // color: Colors.blue,
               ),
-              label: "Profile")
+              label: "Profile"),
         ],
         currentIndex: selectedIndex,
         onTap: onItemTaped,

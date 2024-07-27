@@ -16,7 +16,6 @@ class _MultiImageUploadState extends State<MultiImageUpload> {
   List<String> imageURLs = [];
 
   pickupMultipleImage() async {
-    try {
       FilePickerResult? result =
           await FilePicker.platform.pickFiles(allowMultiple: true);
       if (result != null) {
@@ -26,14 +25,10 @@ class _MultiImageUploadState extends State<MultiImageUpload> {
       } else {
         print("User canceled the picker");
       }
-    } on FirebaseException catch (e) {
-      print("FirebaseException: $e");
-    } catch (e) {
-      print("Exception: $e");
-    }
-  }
+    } 
 
   uploadMultiImages() async {
+    print("uploadMultipleImages Started...");
     final storageRef = FirebaseStorage.instance.ref();
     for (File file in imageFiles) {
       try {
@@ -49,6 +44,7 @@ class _MultiImageUploadState extends State<MultiImageUpload> {
         print("Exception: $e");
       }
     }
+    print("uploadMultipleImages Finished...");
   }
 
   @override
@@ -57,26 +53,28 @@ class _MultiImageUploadState extends State<MultiImageUpload> {
         appBar: AppBar(
           title: const Text("Uplaod Multiple images"),
         ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-                onPressed: pickupMultipleImage, child: const Text("Selct Multiple images")),
-            imageFiles.isNotEmpty
-                ? Wrap(
-                    children: imageFiles.map((file) => Padding(
-                          padding: const EdgeInsets.all(8),
-                          child: Image.file(
-                            file,
-                            height: 100,
-                            width: 100,
-                          ),
-                        )).toList(),
-                  )
-                : const Text("No files"),
-              ElevatedButton(onPressed: uploadMultiImages, child: const Text("Upload Images"))
-          ],
-
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                  onPressed: pickupMultipleImage, child: const Text("Selct Multiple images")),
+              imageFiles.isNotEmpty
+                  ? Wrap(
+                      children: imageFiles.map((file) => Padding(
+                            padding: const EdgeInsets.all(8),
+                            child: Image.file(
+                              file,
+                              height: 100,
+                              width: 100,
+                            ),
+                          )).toList(),
+                    )
+                  : const Text("No files"),
+                ElevatedButton(onPressed: uploadMultiImages, child: const Text("Upload Images"))
+            ],
+          
+          ),
         ));
   }
 }
