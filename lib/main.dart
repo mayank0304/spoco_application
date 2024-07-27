@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:spoco_app/screens/home_page.dart';
 import 'package:spoco_app/screens/login.dart';
+import 'package:spoco_app/screens/my_data.dart';
 import 'package:spoco_app/screens/register.dart';
 import 'package:spoco_app/screens/splash.dart';
 import 'firebase_options.dart';
@@ -27,6 +28,7 @@ class MainApp extends StatelessWidget {
         "/login": (context) => const Login(),
         "/register": (context) => const Register(),
         "/home": (context) => const HomePage(),
+        "/mydata": (context) => const MyData()
       }
     );
   }
