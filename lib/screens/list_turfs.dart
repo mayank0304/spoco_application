@@ -18,17 +18,16 @@ class _ListTurfsState extends State<ListTurfs> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFF1A3636),
       appBar: AppBar(
-          title: const Text(
-            "Home",
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-          actions: [
-            IconButton(
-              onPressed: signout,
-              icon: const Icon(Icons.logout_rounded),
+        backgroundColor: Colors.transparent,
+          title: const Center(
+            child:  Text(
+              "Turfs",
+              style: TextStyle(color: Colors.white, fontWeight:  FontWeight.bold),
             ),
-          ]),
+          ),
+          ),
       body: StreamBuilder<QuerySnapshot>(
           stream: FirebaseFirestore.instance.collection("turfs").snapshots(),
           builder: (context, snapshot) {
@@ -57,7 +56,7 @@ class _ListTurfsState extends State<ListTurfs> {
             return ListView(
               children: turfs
                   .map((turf) => Card(
-                    color: Colors.blue[50],
+                    color: Colors.white,
                         margin: const EdgeInsets.all(12),
                         child: Padding(
                           padding: const EdgeInsets.all(16.0),

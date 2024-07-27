@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:spoco_app/model/user.dart';
 import 'package:spoco_app/utils/util.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -61,45 +62,68 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Center(
-            child: Text(
-          "Login",
-          style: TextStyle(fontSize: 25, color: Colors.white),
-        )),
-        backgroundColor: Colors.blue,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(32),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextField(
-              controller: emailController,
-              decoration: const InputDecoration(
-                  labelText: "email",
-                  border: OutlineInputBorder(borderSide: BorderSide(width: 3))),
+      backgroundColor: const Color(0xFF1A3636),
+      // appBar: AppBar(
+      //   title: const Center(
+      //       child: Text(
+      //     "Login",
+      //     style: TextStyle(fontSize: 25, color: Colors.white),
+      //   )),
+      //   backgroundColor: Colors.transparent,
+      // ),
+      body: 
+      Column(
+        children: [
+          Expanded(flex:1, child:  "Login".text.xl5.white.makeCentered()),
+          Expanded(
+            flex: 2,
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Card(
+                elevation: 10,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      TextField(
+                        controller: emailController,
+                        decoration: const InputDecoration(
+                          prefixIcon: Icon(Icons.email),
+                            labelText: "email",
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(32)),
+                              borderSide: BorderSide(width: 3))),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      TextField(
+                        controller: passwordController,
+                        decoration: const InputDecoration(
+                          prefixIcon: Icon(Icons.lock),
+                            labelText: "password",
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(32)),
+                              borderSide: BorderSide(width: 3))),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      ElevatedButton(onPressed: login, child: const Text("Login")),
+                      TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pushReplacementNamed("/register");
+                          },
+                          child: const Text("New User? Register Here", style: TextStyle(color: Color(0xFF1A3636)),),)
+                    ],
+                  ),
+                ),
+              ),
             ),
-            const SizedBox(
-              height: 20,
-            ),
-            TextField(
-              controller: passwordController,
-              decoration: const InputDecoration(
-                  labelText: "password",
-                  border: OutlineInputBorder(borderSide: BorderSide(width: 3))),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            ElevatedButton(onPressed: login, child: const Text("Login")),
-            TextButton(
-                onPressed: () {
-                  Navigator.of(context).pushReplacementNamed("/register");
-                },
-                child: const Text("New User? Register Here"))
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
