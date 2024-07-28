@@ -6,7 +6,7 @@ class MyTextFormField extends StatelessWidget {
   final dynamic hint;
   final Icon icon;
 
-  const MyTextFormField({super.key, required this.initVal, required this.onSav, required this.hint, required this.icon});
+  const MyTextFormField({super.key, this.initVal, required this.onSav, required this.hint, required this.icon});
 
   @override
   Widget build(BuildContext context) {

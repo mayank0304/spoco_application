@@ -179,7 +179,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       const Spacer(),
                       GestureDetector(
                           onTap: () {
-                            Navigator.of(context).pushNamed("/mydata");
+                            Navigator.of(context).pushNamed("/addturf");
                           },
                           child: Row(
                             children: [

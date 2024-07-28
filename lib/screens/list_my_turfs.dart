@@ -1,34 +1,30 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fan_carousel_image_slider/fan_carousel_image_slider.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:spoco_app/model/turf.dart';
+import 'package:spoco_app/utils/util.dart';
 
-class ListTurfs extends StatefulWidget {
-  const ListTurfs({super.key});
+class ListMyTurfs extends StatefulWidget {
+  const ListMyTurfs({super.key});
 
   @override
-  _ListTurfsState createState() => _ListTurfsState();
+  _ListMyTurfsState createState() => _ListMyTurfsState();
 }
 
-class _ListTurfsState extends State<ListTurfs> {
-  signout() async {
-    await FirebaseAuth.instance.signOut();
-    Navigator.of(context).pushReplacementNamed("/");
-  }
+class _ListMyTurfsState extends State<ListMyTurfs> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFF1A3636),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-          title: const Center(
-            child:  Text(
-              "Turfs",
-              style: TextStyle(color: Colors.white, fontWeight:  FontWeight.bold),
-            ),
+        title: const Center(
+          child: Text(
+            "Turfs",
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
-          ),
+        ),
+      ),
       body: StreamBuilder<QuerySnapshot>(
           stream: FirebaseFirestore.instance.collection("turfs").snapshots(),
           builder: (context, snapshot) {
@@ -52,6 +48,7 @@ class _ListTurfsState extends State<ListTurfs> {
 
             List<Turf> turfs = snapshot.data!.docs
                 .map((doc) => Turf.fromMap(doc.data() as Map<String, dynamic>))
+                .where((test) => test.uid == Util.UID)
                 .toList();
 
             return ListView(
@@ -63,7 +60,7 @@ class _ListTurfsState extends State<ListTurfs> {
                           padding: const EdgeInsets.all(16.0),
                           child: Column(
                             children: [
-                              turf.photos.isNotEmpty &&
+                             turf.photos.isNotEmpty &&
                                       turf.photos.isNotEmpty
                                   ? FanCarouselImageSlider.sliderType2(
                                       imagesLink: 

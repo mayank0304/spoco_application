@@ -1,9 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:spoco_app/screens/list_my_turfs.dart';
 import 'package:spoco_app/screens/list_turfs.dart';
-import 'package:spoco_app/screens/multi_image_upload.dart';
-import 'package:spoco_app/screens/my_turfs_page.dart';
-// import 'package:geolocator/geolocator.dart';
 import 'package:spoco_app/screens/profile_page.dart';
 
 /// Determine the current position of the device.
@@ -23,8 +21,7 @@ class _HomePageState extends State<HomePage> {
 
   List widgets = [
     const ListTurfs(),
-    const MyTurfsPage(),
-    const MultiImageUpload(),
+    const ListMyTurfs(),
     const ProfilePage(),
   ];
 
@@ -62,16 +59,10 @@ class _HomePageState extends State<HomePage> {
               ),
           BottomNavigationBarItem(
               icon: Icon(
-                Icons.chat,
+                Icons.grass,
                 // color: Colors.blue,
               ),
-              label: "Chat"),
-          BottomNavigationBarItem(
-              icon: Icon(
-                Icons.sports_handball,
-                // color: Colors.blue,
-              ),
-              label: "Sports"),
+              label: "My Turfs"),
           BottomNavigationBarItem(
               icon: Icon(
                 Icons.person,

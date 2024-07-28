@@ -105,13 +105,13 @@ class _SplashState extends State<Splash> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: const Color(0xFF1A3636),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset(
-                "assets/spoco.png",
+                "assets/spoco1.png",
                 height: 300,
                 width: 300,
               ),
@@ -120,7 +120,7 @@ class _SplashState extends State<Splash> {
                 style: TextStyle(
                     fontSize: 35,
                     fontWeight: FontWeight.bold,
-                    color: Colors.blue),
+                    color: Colors.white),
               ),
               const SizedBox(
                 height: 40,

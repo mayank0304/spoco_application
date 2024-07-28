@@ -1,15 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-/*
-name
-city
-state 
-location
-photos 
-rent 
-condition
-capacity
-visibility preference
-*/
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:spoco_app/utils/util.dart';
 

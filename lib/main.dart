@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:spoco_app/screens/add_turf.dart';
 import 'package:spoco_app/screens/home_page.dart';
 import 'package:spoco_app/screens/login.dart';
 import 'package:spoco_app/screens/my_data.dart';
@@ -28,7 +29,8 @@ class MainApp extends StatelessWidget {
         "/login": (context) => const Login(),
         "/register": (context) => const Register(),
         "/home": (context) => const HomePage(),
-        "/mydata": (context) => const MyData()
+        "/mydata": (context) => const MyData(),
+        "/addturf": (context) => const AddTurf(),
       }
     );
   }
