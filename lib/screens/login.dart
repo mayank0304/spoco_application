@@ -66,7 +66,7 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF1A3636),
+      backgroundColor: Colors.white,
       // appBar: AppBar(
       //   title: const Center(
       //       child: Text(
@@ -77,59 +77,61 @@ class _LoginState extends State<Login> {
       // ),
       body: Column(
         children: [
-          Expanded(flex: 1, child: "Login".text.xl5.white.makeCentered()),
+          Expanded(
+              flex: 1,
+              child: VxArc(
+                arcType: VxArcType.convey,
+                height: 20,
+                child: Container(
+                    color: const Color(0xFF1A3636),
+                    child: "Login".text.xl5.white.makeCentered()),
+              )),
           Expanded(
             flex: 2,
             child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Card(
-                elevation: 10,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      TextField(
-                        controller: emailController,
-                        decoration: const InputDecoration(
-                            prefixIcon: Icon(Icons.email),
-                            labelText: "email",
-                            border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(32)),
-                                borderSide: BorderSide(width: 3))),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      TextField(
-                        controller: passwordController,
-                        decoration: const InputDecoration(
-                            prefixIcon: Icon(Icons.lock),
-                            labelText: "password",
-                            border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(32)),
-                                borderSide: BorderSide(width: 3))),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      ElevatedButton(
-                          onPressed: login, child: const Text("Login")),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.of(context)
-                              .pushReplacementNamed("/register");
-                        },
-                        child: const Text(
-                          "New User? Register Here",
-                          style: TextStyle(color: Color(0xFF1A3636)),
-                        ),
-                      )
-                    ],
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TextField(
+                    controller: emailController,
+                    decoration: const InputDecoration(
+                        prefixIcon: Icon(Icons.email),
+                        labelText: "email",
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(32)),
+                            borderSide: BorderSide(width: 3))),
                   ),
-                ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  TextField(
+                    obscureText: true,
+                    controller: passwordController,
+                    decoration: const InputDecoration(
+                        prefixIcon: Icon(Icons.lock),
+                        labelText: "password",
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(32)),
+                            borderSide: BorderSide(width: 3))),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  ElevatedButton(style:const ButtonStyle(
+                      backgroundColor: WidgetStatePropertyAll(Color(0xFF1A3636)),
+                      foregroundColor: WidgetStatePropertyAll(Colors.white)
+                    ),onPressed: login, child: const Text("Login")),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pushReplacementNamed("/register");
+                    },
+                    child: const Text(
+                      "New User? Register Here",
+                      style: TextStyle(color: Color(0xFF1A3636)),
+                    ),
+                  )
+                ],
               ),
             ),
           ),

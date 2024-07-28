@@ -7,6 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:spoco_app/model/user.dart';
 import 'package:spoco_app/utils/util.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -76,8 +77,6 @@ class _RegisterState extends State<Register> {
 
         Map<String, dynamic> userData = user.toMap();
 
-
-
         // Add a new document with a generated ID
         // db.collection("users").add(user).then((DocumentReference doc) =>
         //     print('DocumentSnapshot added with ID: ${doc.id}'));
@@ -108,60 +107,92 @@ class _RegisterState extends State<Register> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Center(
-            child: Text(
-          "Register",
-          style: TextStyle(fontSize: 25, color: Colors.white),
-        )),
-        backgroundColor: Colors.blue,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(32),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextField(
-              controller: nameController,
-              decoration: const InputDecoration(
-                  labelText: "name",
-                  border: OutlineInputBorder(borderSide: BorderSide(width: 3))),
+      backgroundColor: Colors.white,
+      // appBar: AppBar(
+      //   title: const Center(
+      //       child: Text(
+      //     "Register",
+      //     style: TextStyle(fontSize: 25, color: Colors.white),
+      //   )),
+      //   backgroundColor: Colors.blue,
+      // ),
+      body: Column(
+        children: [
+          Expanded(
+              flex: 1,
+              child: VxArc(
+                arcType: VxArcType.convey,
+                height: 20,
+                child: Container(
+                    color: const Color(0xFF1A3636),
+                    child: "Register".text.xl5.white.makeCentered()),
+              )),
+          Expanded(
+            flex: 2,
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TextField(
+                    controller: nameController,
+                    decoration: const InputDecoration(
+                      prefixIcon: Icon(Icons.person),
+                        labelText: "name",
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(32)),
+                            borderSide: BorderSide(width: 3))),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  TextField(
+                    controller: emailController,
+                    decoration: const InputDecoration(
+                      prefixIcon: Icon(Icons.email),
+                        labelText: "email",
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(32)),
+                            borderSide: BorderSide(width: 3))),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  TextField(
+                    obscureText: true,
+                    controller: passwordController,
+                    decoration: const InputDecoration(
+                      prefixIcon: Icon(Icons.lock),
+                        labelText: "password",
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(32)),
+                            borderSide: BorderSide(width: 3))),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  ElevatedButton(
+                    style:const ButtonStyle(
+                      backgroundColor: WidgetStatePropertyAll(Color(0xFF1A3636)),
+                      foregroundColor: WidgetStatePropertyAll(Colors.white)
+                    ),
+                      onPressed: register,
+                      child: const Text(
+                        "Register"
+                      )),
+                  TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pushReplacementNamed("/login");
+                      },
+                      child: const Text(
+                        "Existing User? Login Here",
+                        style: TextStyle(color: Color(0xFF1A3636)),
+                      ))
+                ],
+              ),
             ),
-            const SizedBox(
-              height: 20,
-            ),
-            TextField(
-              controller: emailController,
-              decoration: const InputDecoration(
-                  labelText: "email",
-                  border: OutlineInputBorder(borderSide: BorderSide(width: 3))),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            TextField(
-              obscureText: true,
-              controller: passwordController,
-              decoration: const InputDecoration(
-                  labelText: "password",
-                  border: OutlineInputBorder(borderSide: BorderSide(width: 3))),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            ElevatedButton(
-                onPressed: register,
-                child: const Text(
-                  "Register",
-                  style: TextStyle(color: Colors.blue, fontSize: 18),
-                )),
-            TextButton(
-                onPressed: () {
-                  Navigator.of(context).pushReplacementNamed("/login");
-                },
-                child: const Text("Existing User? Login Here"))
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
