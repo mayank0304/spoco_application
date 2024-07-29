@@ -135,7 +135,7 @@ class _RegisterState extends State<Register> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      60.heightBox,
+                      80.heightBox,
                       TextField(
                         controller: nameController,
                         decoration: const InputDecoration(
