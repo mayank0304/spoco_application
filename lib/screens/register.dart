@@ -116,8 +116,7 @@ class _RegisterState extends State<Register> {
       //   )),
       //   backgroundColor: Colors.blue,
       // ),
-      body: SingleChildScrollView(
-        child: Column(
+      body: Column(
           children: [
             Expanded(
                 flex: 1,
@@ -132,70 +131,73 @@ class _RegisterState extends State<Register> {
               flex: 2,
               child: Padding(
                 padding: const EdgeInsets.all(16),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    TextField(
-                      controller: nameController,
-                      decoration: const InputDecoration(
-                        prefixIcon: Icon(Icons.person),
-                          labelText: "name",
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(32)),
-                              borderSide: BorderSide(width: 3))),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    TextField(
-                      controller: emailController,
-                      decoration: const InputDecoration(
-                        prefixIcon: Icon(Icons.email),
-                          labelText: "email",
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(32)),
-                              borderSide: BorderSide(width: 3))),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    TextField(
-                      obscureText: true,
-                      controller: passwordController,
-                      decoration: const InputDecoration(
-                        prefixIcon: Icon(Icons.lock),
-                          labelText: "password",
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(32)),
-                              borderSide: BorderSide(width: 3))),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    ElevatedButton(
-                      style:const ButtonStyle(
-                        backgroundColor: WidgetStatePropertyAll(Color(0xFF1A3636)),
-                        foregroundColor: WidgetStatePropertyAll(Colors.white)
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      60.heightBox,
+                      TextField(
+                        controller: nameController,
+                        decoration: const InputDecoration(
+                          prefixIcon: Icon(Icons.person),
+                            hintText: "name",
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(32)),
+                                borderSide: BorderSide(width: 3))),
                       ),
-                        onPressed: register,
-                        child: const Text(
-                          "Register"
-                        )),
-                    TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pushReplacementNamed("/login");
-                        },
-                        child: const Text(
-                          "Existing User? Login Here",
-                          style: TextStyle(color: Color(0xFF1A3636)),
-                        ))
-                  ],
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      TextField(
+                        controller: emailController,
+                        decoration: const InputDecoration(
+                          prefixIcon: Icon(Icons.email),
+                            hintText: "email",
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(32)),
+                                borderSide: BorderSide(width: 3))),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      TextField(
+                        obscureText: true,
+                        controller: passwordController,
+                        decoration: const InputDecoration(
+                          prefixIcon: Icon(Icons.lock),
+                            hintText: "password",
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(32)),
+                                borderSide: BorderSide(width: 3))),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      ElevatedButton(
+                        style:const ButtonStyle(
+                          backgroundColor: WidgetStatePropertyAll(Color(0xFF1A3636)),
+                          foregroundColor: WidgetStatePropertyAll(Colors.white)
+                        ),
+                          onPressed: register,
+                          child: const Text(
+                            "Register"
+                          )),
+                      TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pushReplacementNamed("/login");
+                          },
+                          child: const Text(
+                            "Existing User? Login Here",
+                            style: TextStyle(color: Color(0xFF1A3636)),
+                          ))
+                    ],
+                  ),
                 ),
               ),
             ),
           ],
         ),
-      ),
+      
     );
   }
 }
