@@ -6,6 +6,8 @@ import 'package:spoco_app/screens/login.dart';
 import 'package:spoco_app/screens/my_data.dart';
 import 'package:spoco_app/screens/register.dart';
 import 'package:spoco_app/screens/splash.dart';
+import 'package:spoco_app/screens/support.dart';
+import 'package:spoco_app/screens/turf_detail.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -31,6 +33,8 @@ class MainApp extends StatelessWidget {
         "/home": (context) => const HomePage(),
         "/mydata": (context) => const MyData(),
         "/addturf": (context) => const AddTurf(),
+        "/turfdetail": (context) => const TurfDetail(),
+        "/support": (context) => const Support(),
       }
     );
   }

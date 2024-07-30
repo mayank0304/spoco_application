@@ -79,6 +79,7 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // backgroundColor: Colors.white,
       backgroundColor: Colors.black,
       body: Column(
         children: [
@@ -88,7 +89,7 @@ class _ProfilePageState extends State<ProfilePage> {
               height: 400,
               color: const Color(0xFF1A3636),
               child: Padding(
-                padding: const EdgeInsets.only(top: 48.0),
+                padding: const EdgeInsets.only(top: 54.0),
                 child: Column(
                   children: [
                     const Center(
@@ -115,7 +116,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     user.name.text.white.xl.make(),
                     user.email.text.white.xl.make(),
                     Padding(
-                      padding: const EdgeInsets.all(24.0),
+                      padding: const EdgeInsets.all(20.0),
                       child: Align(
                         alignment: Alignment.centerRight,
                         child: GestureDetector(
@@ -127,6 +128,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             height: 40,
                             decoration: BoxDecoration(
                               color: Colors.black,
+                              // color: Colors.white,
                               borderRadius: BorderRadius.circular(32),
                             ),
                             child: Padding(
@@ -138,6 +140,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   const Icon(
                                     Icons.edit_rounded,
                                     color: Colors.white,
+                                    // color: Colors.black,
                                   ),
                                   "Edit Profile".text.white.makeCentered(),
                                 ],
@@ -163,66 +166,93 @@ class _ProfilePageState extends State<ProfilePage> {
                   padding: const EdgeInsets.all(24.0),
                   child: Column(
                     children: [
-                      GestureDetector(
+                      InkWell(
+                        borderRadius: BorderRadius.circular(10),
+                        hoverColor: const Color(0xFF1A3636),
                           onTap: () {
                             Navigator.of(context).pushNamed("/mydata");
                           },
-                          child: Row(
-                            children: [
-                              "My Details".text.black.xl.make(),
-                              const Spacer(),
-                              const Icon(Icons.keyboard_arrow_right_rounded)
-                            ],
+                          child: Padding(
+                            padding: const EdgeInsets.all(4.0),
+                            child: Row(
+                              children: [
+                                "My Details".text.color(const Color(0xFF1A3636)).xl.make(),
+                                const Spacer(),
+                                const Icon(Icons.keyboard_arrow_right_rounded, color: Color(0xFF1A3636),)
+                              ],
+                            ),
                           )),
                       const Spacer(),
-                      const Divider(),
+                     const Divider(color: Color(0xFF1A3636),),
                       const Spacer(),
-                      GestureDetector(
+                      InkWell(
+                         borderRadius: BorderRadius.circular(10),
+                        hoverColor: const Color(0xFF1A3636),
                           onTap: () {
                             Navigator.of(context).pushNamed("/addturf");
                           },
-                          child: Row(
-                            children: [
-                              "Add Turf".text.black.xl.make(),
-                              const Spacer(),
-                              const Icon(Icons.keyboard_arrow_right_rounded)
-                            ],
+                          child: Padding(
+                            padding: const EdgeInsets.all(4.0),
+                            child: Row(
+                              children: [
+                                "Add Turf".text.color(const Color(0xFF1A3636)).xl.make(),
+                                const Spacer(),
+                                const Icon(Icons.keyboard_arrow_right_rounded, color: Color(0xFF1A3636),)
+                              ],
+                            ),
                           )),
                       const Spacer(),
-                      const Divider(),
+                      const Divider(color: Color(0xFF1A3636),),
                       const Spacer(),
-                      GestureDetector(
+                      InkWell(
+                         borderRadius: BorderRadius.circular(10),
+                        hoverColor: const Color(0xFF1A3636),
                           onTap: () {},
-                          child: Row(
-                            children: [
-                              "Settings".text.black.xl.make(),
-                              const Spacer(),
-                              const Icon(Icons.keyboard_arrow_right_rounded)
-                            ],
+                          child: Padding(
+                            padding: const EdgeInsets.all(4.0),
+                            child: Row(
+                              children: [
+                                "Settings".text.color(const Color(0xFF1A3636)).xl.make(),
+                                const Spacer(),
+                                const Icon(Icons.keyboard_arrow_right_rounded, color: Color(0xFF1A3636),)
+                              ],
+                            ),
                           )),
                       const Spacer(),
-                      const Divider(),
+                      const Divider(color: Color(0xFF1A3636),),
                       const Spacer(),
-                      GestureDetector(
-                          onTap: () {},
-                          child: Row(
-                            children: [
-                              "Support".text.black.xl.make(),
-                              const Spacer(),
-                              const Icon(Icons.keyboard_arrow_right_rounded)
-                            ],
+                      InkWell(
+                         borderRadius: BorderRadius.circular(10),
+                        hoverColor: const Color(0xFF1A3636),
+                          onTap: () {
+                            Navigator.of(context).pushNamed("/support");
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.all(4.0),
+                            child: Row(
+                              children: [
+                                "Support".text.color(const Color(0xFF1A3636)).xl.make(),
+                                const Spacer(),
+                                const Icon(Icons.keyboard_arrow_right_rounded, color: Color(0xFF1A3636),)
+                              ],
+                            ),
                           )),
                       const Spacer(),
-                      const Divider(),
+                      const Divider(color: Color(0xFF1A3636),),
                       const Spacer(),
-                      GestureDetector(
+                      InkWell(
+                         borderRadius: BorderRadius.circular(10),
+                        hoverColor: const Color(0xFF1A3636),
                           onTap: signout,
-                          child: Row(
-                            children: [
-                              "Sign Out".text.black.xl.make(),
-                              const Spacer(),
-                              const Icon(Icons.keyboard_arrow_right_rounded)
-                            ],
+                          child: Padding(
+                            padding: const EdgeInsets.all(4.0),
+                            child: Row(
+                              children: [
+                                "Sign Out".text.color(const Color(0xFF1A3636)).xl.make(),
+                                const Spacer(),
+                                const Icon(Icons.keyboard_arrow_right_rounded, color: Color(0xFF1A3636),)
+                              ],
+                            ),
                           )),
                     ],
                   ),

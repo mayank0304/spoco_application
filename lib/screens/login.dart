@@ -17,6 +17,7 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  var obscureText = true;
 
   @override
   void initState() {
@@ -63,6 +64,16 @@ class _LoginState extends State<Login> {
     }
   }
 
+  obscurePass() {
+    setState(() {
+      if (obscureText == false) {
+        obscureText = true;
+      } else {
+        obscureText = false;
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -94,35 +105,82 @@ class _LoginState extends State<Login> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   TextField(
+                    style: const TextStyle(color: Colors.white),
+                    cursorColor: Colors.white,
                     controller: emailController,
                     decoration: const InputDecoration(
                         prefixIcon: Icon(Icons.email),
+                        prefixIconColor: Colors.white,
                         hintText: "email",
+                        hintStyle: TextStyle(color: Colors.white),
+                        errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(32)),
+                          borderSide: BorderSide(width: 2, color: Colors.red),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(32)),
+                          borderSide: BorderSide(width: 2, color: Colors.white),
+                        ),
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(32)),
-                            borderSide: BorderSide(width: 3))),
+                            borderSide: BorderSide(width: 3)),
+                        filled: true,
+                        fillColor: Color(0xFF1A3636)),
                   ),
                   const SizedBox(
                     height: 20,
                   ),
                   TextField(
-                    obscureText: true,
+                    style: const TextStyle(color: Colors.white),
+                    cursorColor: Colors.white,
+                    obscureText: obscureText,
                     controller: passwordController,
-                    decoration: const InputDecoration(
-                        prefixIcon: Icon(Icons.lock),
+                    decoration: InputDecoration(
+                        prefixIcon: const Icon(Icons.lock),
+                        prefixIconColor: Colors.white,
+                        suffixIcon: InkWell(
+                            splashColor: Colors.transparent,
+                            onTap: obscurePass,
+                            child: obscureText
+                                ? const Icon(
+                                    Icons.visibility_off,
+                                    color: Colors.white,
+                                  )
+                                : const Icon(
+                                    Icons.visibility,
+                                    color: Colors.white,
+                                  )),
                         hintText: "password",
-                        border: OutlineInputBorder(
+                        hintStyle: const TextStyle(color: Colors.white),
+                        errorBorder: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(32)),
+                          borderSide: BorderSide(width: 2, color: Colors.red),
+                        ),
+                        focusedBorder: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(32)),
+                          borderSide: BorderSide(width: 2, color: Colors.white),
+                        ),
+                        border: const OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(32)),
-                            borderSide: BorderSide(width: 3))),
+                            borderSide: BorderSide(width: 3)),
+                        filled: true,
+                        fillColor: const Color(0xFF1A3636)),
                   ),
                   const SizedBox(
                     height: 20,
                   ),
-                  ElevatedButton(style:const ButtonStyle(
-                      backgroundColor: WidgetStatePropertyAll(Color(0xFF1A3636)),
-                      foregroundColor: WidgetStatePropertyAll(Colors.white)
-                    ),onPressed: login, child: const Text("Login")),
+                  ElevatedButton(
+                      style: const ButtonStyle(
+                          backgroundColor:
+                              WidgetStatePropertyAll(Color(0xFF1A3636)),
+                          foregroundColor:
+                              WidgetStatePropertyAll(Colors.white)),
+                      onPressed: login,
+                      child: const Text("Login")),
                   TextButton(
+                    style: ButtonStyle(
+                      overlayColor: WidgetStatePropertyAll(Colors.green[50]),
+                    ),
                     onPressed: () {
                       Navigator.of(context).pushReplacementNamed("/register");
                     },

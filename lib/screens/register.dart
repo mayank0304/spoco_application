@@ -4,7 +4,9 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:spoco_app/model/user.dart';
 import 'package:spoco_app/utils/util.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -20,6 +22,7 @@ class _RegisterState extends State<Register> {
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  var obscureText = true;
 
   register() async {
     String name = nameController.text.trim();
@@ -104,6 +107,16 @@ class _RegisterState extends State<Register> {
     }
   }
 
+  obscurePass() {
+    setState(() {
+    if (obscureText == false) {
+      obscureText = true;
+    } else {
+      obscureText = false;
+    }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -117,87 +130,166 @@ class _RegisterState extends State<Register> {
       //   backgroundColor: Colors.blue,
       // ),
       body: Column(
-          children: [
-            Expanded(
-                flex: 1,
-                child: VxArc(
-                  arcType: VxArcType.convey,
-                  height: 20,
-                  child: Container(
-                      color: const Color(0xFF1A3636),
-                      child: "Register".text.xl5.white.makeCentered()),
-                )),
-            Expanded(
-              flex: 2,
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: SingleChildScrollView(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      80.heightBox,
-                      TextField(
-                        controller: nameController,
-                        decoration: const InputDecoration(
-                          prefixIcon: Icon(Icons.person),
-                            hintText: "name",
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.all(Radius.circular(32)),
-                                borderSide: BorderSide(width: 3))),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      TextField(
-                        controller: emailController,
-                        decoration: const InputDecoration(
-                          prefixIcon: Icon(Icons.email),
-                            hintText: "email",
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.all(Radius.circular(32)),
-                                borderSide: BorderSide(width: 3))),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      TextField(
-                        obscureText: true,
-                        controller: passwordController,
-                        decoration: const InputDecoration(
-                          prefixIcon: Icon(Icons.lock),
-                            hintText: "password",
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.all(Radius.circular(32)),
-                                borderSide: BorderSide(width: 3))),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      ElevatedButton(
-                        style:const ButtonStyle(
-                          backgroundColor: WidgetStatePropertyAll(Color(0xFF1A3636)),
-                          foregroundColor: WidgetStatePropertyAll(Colors.white)
+        children: [
+          Expanded(
+              flex: 1,
+              child: VxArc(
+                arcType: VxArcType.convey,
+                height: 20,
+                child: Container(
+                    color: const Color(0xFF1A3636),
+                    child: "Register".text.xl5.white.makeCentered()),
+              )),
+          Expanded(
+            flex: 2,
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: SingleChildScrollView(
+                child: Column(
+                  // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  // crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    80.heightBox,
+                    Column(
+                      children: [
+                        TextField(
+                          style: const TextStyle(color: Colors.white),
+                          cursorColor: Colors.white,
+                          controller: nameController,
+                          decoration: const InputDecoration(
+                              prefixIcon: Icon(Icons.person),
+                              prefixIconColor: Colors.white,
+                              hintText: "name",
+                              hintStyle: TextStyle(color: Colors.white),
+                              errorBorder: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(32)),
+                                borderSide:
+                                    BorderSide(width: 2, color: Colors.red),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(32)),
+                                borderSide:
+                                    BorderSide(width: 2, color: Colors.white),
+                              ),
+                              border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(32)),
+                                  borderSide: BorderSide(width: 3)),
+                              filled: true,
+                              fillColor: Color(0xFF1A3636)),
                         ),
-                          onPressed: register,
-                          child: const Text(
-                            "Register"
-                          )),
-                      TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pushReplacementNamed("/login");
-                          },
-                          child: const Text(
-                            "Existing User? Login Here",
-                            style: TextStyle(color: Color(0xFF1A3636)),
-                          ))
-                    ],
-                  ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        TextField(
+                          style: const TextStyle(color: Colors.white),
+                          cursorColor: Colors.white,
+                          controller: emailController,
+                          decoration: const InputDecoration(
+                              prefixIcon: Icon(Icons.email),
+                              prefixIconColor: Colors.white,
+                              hintText: "email",
+                              hintStyle: TextStyle(color: Colors.white),
+                              errorBorder: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(32)),
+                                borderSide:
+                                    BorderSide(width: 2, color: Colors.red),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(32)),
+                                borderSide:
+                                    BorderSide(width: 2, color: Colors.white),
+                              ),
+                              border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(32)),
+                                  borderSide: BorderSide(width: 3)),
+                              filled: true,
+                              fillColor: Color(0xFF1A3636)),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        TextField(
+                          style: const TextStyle(color: Colors.white),
+                          cursorColor: Colors.white,
+                          obscureText: obscureText,
+                          controller: passwordController,
+                          decoration: InputDecoration(
+                              prefixIcon: const Icon(Icons.lock),
+                              prefixIconColor: Colors.white,
+                              suffixIcon: InkWell(
+                                splashColor: Colors.transparent,
+                                onTap: obscurePass,
+                                  child: obscureText? const Icon(
+                                Icons.visibility_off,
+                                color: Colors.white,
+                              ) :  const Icon(
+                                Icons.visibility,
+                                color: Colors.white,
+                              )),
+                              hintText: "password",
+                              hintStyle: const TextStyle(color: Colors.white),
+                              errorBorder: const OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(32)),
+                                borderSide:
+                                    BorderSide(width: 2, color: Colors.red),
+                              ),
+                              focusedBorder: const OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(32)),
+                                borderSide:
+                                    BorderSide(width: 2, color: Colors.white),
+                              ),
+                              border: const OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(32)),
+                                  borderSide: BorderSide(width: 3)),
+                              filled: true,
+                              fillColor: const Color(0xFF1A3636)),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        ElevatedButton(
+                            style: const ButtonStyle(
+                                backgroundColor:
+                                    WidgetStatePropertyAll(Color(0xFF1A3636)),
+                                foregroundColor:
+                                    WidgetStatePropertyAll(Colors.white)),
+                            onPressed: register,
+                            child: const Text("Register")),
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        TextButton(
+                            style: ButtonStyle(
+                              overlayColor:
+                                  WidgetStatePropertyAll(Colors.green[50]),
+                            ),
+                            onPressed: () {
+                              Navigator.of(context)
+                                  .pushReplacementNamed("/login");
+                            },
+                            child: const Text(
+                              "Existing User? Login Here",
+                              style: TextStyle(color: Color(0xFF1A3636)),
+                            )),
+                      ],
+                    )
+                  ],
                 ),
               ),
             ),
-          ],
-        ),
-      
+          ),
+        ],
+      ),
     );
   }
 }

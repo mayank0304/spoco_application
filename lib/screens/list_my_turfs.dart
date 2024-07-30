@@ -3,6 +3,7 @@ import 'package:fan_carousel_image_slider/fan_carousel_image_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:spoco_app/model/turf.dart';
 import 'package:spoco_app/utils/util.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class ListMyTurfs extends StatefulWidget {
   const ListMyTurfs({super.key});
@@ -51,7 +52,7 @@ class _ListMyTurfsState extends State<ListMyTurfs> {
                 .where((test) => test.uid == Util.UID)
                 .toList();
 
-            return ListView(
+            return turfs.isEmpty ? "You haven't added a turf".text.white.xl3.makeCentered() : ListView(
               children: turfs
                   .map((turf) => Card(
                         color: Colors.white,
@@ -119,11 +120,13 @@ class _ListMyTurfsState extends State<ListMyTurfs> {
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
                                     IconButton(
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          Navigator.of(context).pushNamed("/turfdetail", arguments: turf);
+                                        },
                                         icon: const Icon(Icons.info_outline)),
                                     IconButton(
                                         onPressed: () {},
-                                        icon: const Icon(Icons.update)),
+                                        icon: const Icon(Icons.edit)),
                                     IconButton(
                                         onPressed: () {},
                                         icon: const Icon(Icons.delete))

@@ -3,6 +3,7 @@ import 'package:fan_carousel_image_slider/fan_carousel_image_slider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:spoco_app/model/turf.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class ListTurfs extends StatefulWidget {
   const ListTurfs({super.key});
@@ -102,10 +103,7 @@ class _ListTurfsState extends State<ListTurfs> {
                                           fontSize: 20,
                                         ),
                                       ),
-                                      Text(
-                                        turf.condition,
-                                        style: const TextStyle(fontSize: 20),
-                                      ),
+                                      // 
                                       Text(
                                         "\u20b9 ${turf.rent} per hour",
                                         style: const TextStyle(
@@ -122,14 +120,22 @@ class _ListTurfsState extends State<ListTurfs> {
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
                                     IconButton(
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          Navigator.of(context).pushNamed("/turfdetail", arguments: turf);
+                                        },
                                         icon: const Icon(Icons.info_outline)),
-                                    IconButton(
-                                        onPressed: () {},
-                                        icon: const Icon(Icons.update)),
-                                    IconButton(
-                                        onPressed: () {},
-                                        icon: const Icon(Icons.delete))
+                                    
+                                    ElevatedButton(
+                                      style: const ButtonStyle(
+                                        backgroundColor: WidgetStatePropertyAll(Color(0xFF1A3636)),
+                                        foregroundColor: WidgetStatePropertyAll(Colors.white)
+                                      ),
+                                      onPressed: () {
+                                      Navigator.of(context).pushNamed("/turfdetail", arguments: turf);
+                                    }, child: "Book Now".text.makeCentered()),
+                                    // IconButton(
+                                    //     onPressed: () {},
+                                    //     icon: const Icon(Icons.delete))
                                   ],
                                 ),
                               )
