@@ -11,6 +11,7 @@ class MyTextFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      // readOnly: true,
       initialValue: initVal,
       style: const TextStyle(color: Colors.white),
       decoration: InputDecoration(

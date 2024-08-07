@@ -1,3 +1,6 @@
+/* creator: mayank
+*/
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fan_carousel_image_slider/fan_carousel_image_slider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -13,139 +16,198 @@ class ListTurfs extends StatefulWidget {
 }
 
 class _ListTurfsState extends State<ListTurfs> {
+  String? sortCriteria;
+
   signout() async {
     await FirebaseAuth.instance.signOut();
     Navigator.of(context).pushReplacementNamed("/");
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF1A3636),
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-          title: const Center(
-            child:  Text(
-              "Turfs",
-              style: TextStyle(color: Colors.white, fontWeight:  FontWeight.bold),
+      backgroundColor: const Color(0xFF1A3636),
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(40.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  "Spoco".text.xl5.white.bold.make(),
+                ],
+              ),
             ),
-          ),
-          ),
-      body: StreamBuilder<QuerySnapshot>(
-          stream: FirebaseFirestore.instance.collection("turfs").snapshots(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
+            Padding(
+              padding: const EdgeInsets.only(left: 24),
+              child: Row(
+                // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          sortCriteria = "rent";
+                        });
+                      },
+                      child: "rent".text.lg.color(const Color(0xFF1A3636)).make()),
+                  15.widthBox,
+                  ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          sortCriteria = null;
+                        });
+                      },
+                      child: "default".text.lg.color(Color(0xFF1A3636)).make()),
+                  15.widthBox,
+                  ElevatedButton(
+                      onPressed: () {},
+                      child: "Sort".text.lg.color(Color(0xFF1A3636)).make()),
+                ],
+              ),
+            ),
+            20.heightBox,
+            Expanded(
+              child: StreamBuilder<QuerySnapshot>(
+                  stream: sortCriteria == null ?  FirebaseFirestore.instance
+                      .collection("turfs")
+                      .snapshots() : FirebaseFirestore.instance
+                      .collection("turfs").orderBy(sortCriteria!)
+                      .snapshots(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
 
-            if (snapshot.hasError) {
-              return const Center(
-                child: Text("Something went wrong. Please try again"),
-              );
-            }
+                    if (snapshot.hasError) {
+                      return const Center(
+                        child: Text("Something went wrong. Please try again"),
+                      );
+                    }
 
-            if (!snapshot.hasData) {
-              return const Center(
-                child: Text("No data found"),
-              );
-            }
+                    if (!snapshot.hasData) {
+                      return const Center(
+                        child: Text("No data found"),
+                      );
+                    }
 
-            List<Turf> turfs = snapshot.data!.docs
-                .map((doc) => Turf.fromMap(doc.data() as Map<String, dynamic>))
-                .toList();
+                    List<Turf> turfs = snapshot.data!.docs
+                        .map((doc) =>
+                            Turf.fromMap(doc.data() as Map<String, dynamic>))
+                        .toList();
 
-            return ListView(
-              children: turfs
-                  .map((turf) => Card(
-                        color: Colors.white,
-                        margin: const EdgeInsets.all(12),
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Column(
-                            children: [
-                              turf.photos.isNotEmpty &&
-                                      turf.photos.isNotEmpty
-                                  ? FanCarouselImageSlider.sliderType2(
-                                      imagesLink: 
-                                        turf.photos.map((index) => index).toList(),
-                                      isAssets: false,
-                                      autoPlay: false,
-                                      sliderHeight: 250,
-                                      currentItemShadow: const [],
-                                      sliderDuration:
-                                          const Duration(milliseconds: 200),
-                                      imageRadius: 10,
-                                      slideViewportFraction: 1,
-                                    )
-                                  : Image.network(
-                                      "https://firebasestorage.googleapis.com/v0/b/spoco-cc192.appspot.com/o/turf-pics%2FIMG-20240728-WA0002.jpg?alt=media&token=cc922efa-ba94-4d40-8e26-3df13fac51ee"),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Container(
-                                  alignment: Alignment.topLeft,
+                    return ListView(
+                      children: turfs
+                          .map((turf) => Card(
+                                color: Colors.white,
+                                margin: const EdgeInsets.all(12),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(16.0),
                                   child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    // mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
-                                      Text(
-                                        turf.name,
-                                        style: const TextStyle(
-                                            fontSize: 20, color: Colors.blue),
+                                      turf.photos.isNotEmpty &&
+                                              turf.photos.isNotEmpty
+                                          ? FanCarouselImageSlider.sliderType2(
+                                              imagesLink: turf.photos
+                                                  .map((index) => index)
+                                                  .toList(),
+                                              isAssets: false,
+                                              autoPlay: false,
+                                              sliderHeight: 250,
+                                              currentItemShadow: const [],
+                                              sliderDuration: const Duration(
+                                                  milliseconds: 200),
+                                              imageRadius: 10,
+                                              slideViewportFraction: 1,
+                                            )
+                                          : Image.network(
+                                              "https://firebasestorage.googleapis.com/v0/b/spoco-cc192.appspot.com/o/turf-pics%2FIMG-20240728-WA0002.jpg?alt=media&token=cc922efa-ba94-4d40-8e26-3df13fac51ee"),
+                                      const SizedBox(
+                                        height: 10,
                                       ),
-                                      Text(
-                                        "${turf.city}, ${turf.state}, ${turf.country}",
-                                        style: const TextStyle(
-                                          fontSize: 20,
+                                      Padding(
+                                        padding: const EdgeInsets.all(16.0),
+                                        child: Container(
+                                          alignment: Alignment.topLeft,
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            // mainAxisAlignment: MainAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                turf.name,
+                                                style: const TextStyle(
+                                                    fontSize: 20,
+                                                    color: Colors.blue),
+                                              ),
+                                              Text(
+                                                "${turf.city}, ${turf.state}, ${turf.country}",
+                                                style: const TextStyle(
+                                                  fontSize: 20,
+                                                ),
+                                              ),
+                                              //
+                                              Text(
+                                                "\u20b9 ${turf.rent} per hour",
+                                                style: const TextStyle(
+                                                    fontSize: 20,
+                                                    color: Colors.red),
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ),
-                                      // 
-                                      Text(
-                                        "\u20b9 ${turf.rent} per hour",
-                                        style: const TextStyle(
-                                            fontSize: 20, color: Colors.red),
-                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            IconButton(
+                                                onPressed: () {
+                                                  Navigator.of(context)
+                                                      .pushNamed("/turfdetail",
+                                                          arguments: turf);
+                                                },
+                                                icon: const Icon(
+                                                    Icons.info_outline)),
+                                            ElevatedButton(
+                                                style: const ButtonStyle(
+                                                    backgroundColor:
+                                                        WidgetStatePropertyAll(
+                                                            Color(0xFF1A3636)),
+                                                    foregroundColor:
+                                                        WidgetStatePropertyAll(
+                                                            Colors.white)),
+                                                onPressed: () {
+                                                  Navigator.of(context)
+                                                      .pushNamed("/turfdetail",
+                                                          arguments: turf);
+                                                },
+                                                child: "Book Now"
+                                                    .text
+                                                    .makeCentered()),
+                                            // IconButton(
+                                            //     onPressed: () {},
+                                            //     icon: const Icon(Icons.delete))
+                                          ],
+                                        ),
+                                      )
                                     ],
                                   ),
                                 ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    IconButton(
-                                        onPressed: () {
-                                          Navigator.of(context).pushNamed("/turfdetail", arguments: turf);
-                                        },
-                                        icon: const Icon(Icons.info_outline)),
-                                    
-                                    ElevatedButton(
-                                      style: const ButtonStyle(
-                                        backgroundColor: WidgetStatePropertyAll(Color(0xFF1A3636)),
-                                        foregroundColor: WidgetStatePropertyAll(Colors.white)
-                                      ),
-                                      onPressed: () {
-                                      Navigator.of(context).pushNamed("/turfdetail", arguments: turf);
-                                    }, child: "Book Now".text.makeCentered()),
-                                    // IconButton(
-                                    //     onPressed: () {},
-                                    //     icon: const Icon(Icons.delete))
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ))
-                  .toList(),
-            );
-          }),
+                              ))
+                          .toList(),
+                    );
+                  }),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

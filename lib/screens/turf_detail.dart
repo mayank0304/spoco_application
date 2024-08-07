@@ -56,7 +56,7 @@ class _TurfDetailState extends State<TurfDetail> {
                 child: Column(
                   children: [
                     turf.photos.isNotEmpty && turf.photos.isNotEmpty
-                        ? FanCarouselImageSlider.sliderType2(
+                        ? FanCarouselImageSlider.sliderType1(
                             imagesLink:
                                 turf.photos.map((index) => index).toList(),
                             isAssets: false,
